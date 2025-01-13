@@ -41,13 +41,42 @@
             // STEP 8a: Create a new BABYLON scene, passing in the engine as an argument
             const scene = new BABYLON.Scene(engine);
             BABYLON.MeshBuilder.CreateBox("box", {}); // Create box mesh object
- 
-            // const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0)); // Add Arc Rotate Camera
-            // camera.attachControl(canvas, true); // Attach camera control to the canvas
+            // for Lab1- Adding 3 additional Mesh Objects
+            // Creating a sphere
+            const sphere = BABYLON.MeshBuilder.CreateSphere("Sphere", { diameter: 1.5 });
+
+            // Creating a cylinder
+            const cylinder = BABYLON.MeshBuilder.CreateCylinder("Cylinder", { height: 2, diameter: 1 });
+
+            // Creating a capsule
+            const capsule = BABYLON.MeshBuilder.CreateCapsule("Capsule", { height: 2, baseWidth: 1, baseHeight: 0.5 });
+
+            // Changing the color
+            const sphereMaterial = new BABYLON.StandardMaterial("sphereMaterial", scene);
+            sphereMaterial.diffuseColor = new BABYLON.Color3(1, 2, 0);
+            sphere.material = sphereMaterial;
+            
+            const cylinderMaterial = new BABYLON.StandardMaterial("cylinderMaterial", scene);
+            cylinderMaterial.diffuseColor = new BABYLON.Color3(2, 1, 0);
+            cylinder.material = cylinderMaterial;
+
+            const capsuleMaterial = new BABYLON.StandardMaterial("capsuleMaterial", scene);
+            capsuleMaterial.diffuseColor = new BABYLON.Color3(0, 5, 2);
+            capsule.material = capsuleMaterial;
+
+            // Changing the Positions of the Newly added Mesh Objects
+            sphere.position.x = 2;
+            cylinder.position.x = 2;
+            cylinder.position.y = 2;
+            capsule.position.y = 2;
+
+             const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0)); // Add Arc Rotate Camera
+             camera.attachControl(canvas, true); // Attach camera control to the canvas
             // Replace the above camera with the below XR if you have a headset
-            const xr = scene.createDefaultXRExperienceAsync();
+            // const xr = scene.createDefaultXRExperienceAsync();
  
-            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
+            const light = new BABYLON.DirectionalLight("light", new BABYLON.Vector3(0, 1, 1), scene); // Adding Directional Light
+
             // STEP 8b: Return the scene
             return scene;
         }
